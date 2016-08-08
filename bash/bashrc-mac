@@ -26,7 +26,7 @@ shopt -s histappend
 # Change the window title of X terminals 
 case ${TERM} in
 	xterm*|rxvt*|Eterm|aterm|kterm|gnome*|interix)
-		PROMPT_COMMAND='echo -ne "\033]0;${USER}@${HOSTNAME%%.*}:${PWD/$HOME/~}\007"'
+		PROMPT_COMMAND='echo -ne "\033]0;${PWD##*/}\007"'
 		;;
 	screen)
 		PROMPT_COMMAND='echo -ne "\033_${USER}@${HOSTNAME%%.*}:${PWD/$HOME/~}\033\\"'
@@ -66,7 +66,7 @@ if ${use_color} ; then
 	fi
 
 	alias ls='ls -G'
-	alias lsa='ls -al'
+	alias lsa='ls -alh'
 	alias grep='grep --colour=auto'
 else
 	if [[ ${EUID} == 0 ]] ; then
@@ -81,3 +81,11 @@ fi
 unset use_color safe_term match_lhs
 
 PATH=$PATH:$HOME/.rvm/bin # Add RVM to PATH for scripting
+
+export NVM_DIR="/Users/znelson/.nvm"
+[ -s "$NVM_DIR/nvm.sh" ] && . "$NVM_DIR/nvm.sh"  # This loads nvm
+
+function title
+{
+  echo -ne "\033]0;"$*"\007"
+}

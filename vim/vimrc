@@ -154,6 +154,6 @@ let g:pymode_lint_ignore = "W404"
 set wildmenu
 
 " Ignore warnings in javascript
-let g:syntastic_quiet_warnings=1
+let g:syntastic_quiet_messages = {'level': 'warnings'}
 
 let g:syntastic_ignore_files=['\c.*\.rst']

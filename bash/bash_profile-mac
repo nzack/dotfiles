@@ -3,11 +3,16 @@ if [ -f ~/.bashrc ]; then
 fi
 export PATH=/usr/local/share/npm/bin:/usr/local/bin:/usr/local/sbin:$PATH
 export EDITOR=vim
-export ANDROID_HOME=/Users/znelson/development/r22.3/sdk
 
+# Android set up
+export ANDROID_HOME=/Users/znelson/.android-sdk
 export PATH=$ANDROID_HOME:$ANDROID_HOME/platform-tools:$ANDROID_HOME/tools:$PATH
 
 export MAVEN_OPTS="-Xmx1024M -Xss256M -XX:MaxPermSize=2048M -XX:+CMSClassUnloadingEnabled -XX:-UseGCOverheadLimit"
+
+export GOPATH=~/go
+#export PATH=$PATH:$GOROOT/bin
+
 
 if [ -f `brew --prefix`/etc/bash_completion ]; then
     . `brew --prefix`/etc/bash_completion
@@ -16,11 +21,58 @@ fi
 ### Added by the Heroku Toolbelt
 export PATH="/usr/local/heroku/bin:$PATH"
 
-[[ -s "$HOME/.rvm/scripts/rvm" ]] && source "$HOME/.rvm/scripts/rvm" # Load RVM into a shell session *as a function*
+# Load RVM into a shell session *as a function*
+[[ -s "$HOME/.rvm/scripts/rvm" ]] && source "$HOME/.rvm/scripts/rvm"
 
-export PATH=/opt/local/bin:/opt/local/sbin:$PATH
+export PATH=/opt/local/bin:/opt/local/sbin:./node_modules/.bin:$PATH
 
+
+# Add task warrior
+export PATH=$PATH:/Users/znelson/git/dev/taskwarrior/src
+
+
+# Source aliases
 if [ -f ~/.aliases ]; then
     source ~/.aliases
 fi
 
+#$(boot2docker shellinit)
+
+#eval "$(jenv init -)"
+
+
+# Set the max number of open files to a sane default, stupid Mac's 256 limit
+ulimit -n 8192
+
+# Shortcut to source the bash profile
+_() {
+  source ~/.bash_profile
+}
+
+
+# Gets the real directory, i.e. here and not where it's symlinked from (~/.bash_profile).
+# That way we can source other files in this directory easily.
+CURR_DIR=$(dirname $(readlink ${BASH_SOURCE}))
+
+# Load all task warrior shortcut functions
+if [ -f $CURR_DIR/bash_taskwarrior ]; then
+    source $CURR_DIR/bash_taskwarrior
+fi
+
+# Load all aws shortcut functions
+if [ -f $CURR_DIR/bash_aws ]; then
+    source $CURR_DIR/bash_aws
+fi
+
+
+
+test -e "${HOME}/.iterm2_shell_integration.bash" && source "${HOME}/.iterm2_shell_integration.bash"
+
+
+logs_ip() {
+  dig @10.5.0.2 logs-$1.virtru.internal
+}
+
+export VAGRANT_DEFAULT_PROVIDER=vmware_fusion
+
+export ANSIBLE_VAULT_PASSWORD_FILE=~/.creds/.vault_pass.txt

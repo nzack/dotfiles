@@ -1,0 +1,34 @@
+[alias]
+	gui = !sh -c '/usr/local/git/libexec/git-core/git-gui'
+ 	st = status
+	ci = commit -m 
+	br = branch
+	co = checkout
+	create = checkout -b
+	df = diff
+	lg = log -p
+	master = checkout master
+	develop = checkout develop
+	po = push nzack HEAD
+	poo = push origin HEAD
+	ftch = fetch --verbose
+  ff = merge --ff-only
+	rh = reset --hard HEAD
+	up = "!f() { git branch --set-upstream-to=origin/$1 $1; }; f"
+	cl = "!f() { git clone git@github.com:$1; }; f"
+	remote-add = "!f() { git remote add $1 git@github.com:$2/$3.git; }; f"
+
+
+[user]
+	name = Zack Nelson
+	email = znelson@virtru.com
+[push]
+	default = nothing
+[core]
+	excludesfile = /Users/znelson/.gitignore_global
+[difftool "sourcetree"]
+	cmd = "opendiff "
+	path = 
+[mergetool "sourcetree"]
+	cmd = "opendiff "
+	trustExitCode = true

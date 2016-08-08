@@ -1,0 +1,42 @@
+#!/usr/bin/env bash
+
+
+aws_ssh()
+{
+  ssh znelson@`aws ec2 describe-instances --filters Name=tag:Name,Values=$1 | jq .Reservations[0].Instances[0].PrivateIpAddress -r`
+}
+
+asi()
+{
+  aws ec2 describe-instances --filters Name=tag:Name,Values=$1 | jq
+}
+
+aws_server_info()
+{
+  aws ec2 describe-instances --filters Name=tag:Name,Values=$1 | jq
+}
+
+aws_server_ip()
+{
+  aws ec2 describe-instances --filters Name=tag:Name,Values=$1 | jq .Reservations[0].Instances[0].PrivateIpAddress -r
+}
+
+aws_instance_base()
+{
+  aws ec2 describe-instances --filter Name=instance-id,Values=$1
+}
+
+aws_instance()
+{
+  aws_instance_base $1 | jq .Reservations[0].Instances[0]
+}
+
+aws_instance_name()
+{
+  aws_instance_base $1 | jq .Reservations[0].Instances[0].PublicDnsName
+}
+
+aws_instance_env()
+{
+  aws_instance_base $1 | jq .Reservations[0].Instances[0].PublicDnsName
+}

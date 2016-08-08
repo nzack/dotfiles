@@ -1,0 +1,31 @@
+#!/usr/bin/env bash
+
+# List all personal tasks
+tlp()
+{
+  task list +personal $@
+}
+
+# List all work tasks
+tlw()
+{
+  task list +work $@
+}
+
+# List all tasks
+tl()
+{
+  task list $@
+}
+
+# Add a personal task
+tap()
+{
+  task add $1 +personal ${@:2}
+}
+
+# Add a work task
+taw()
+{
+  task add $1 +work ${@:2}
+}

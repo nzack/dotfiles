@@ -2,3 +2,19 @@
 
 alias speedtest='wget -O /dev/null http://speedtest.wdc01.softlayer.com/downloads/test10.zip'
 alias simulator='open /Applications/Xcode.app/Contents/Developer/Platforms/iPhoneSimulator.platform/Developer/Applications/iPhone\ Simulator.app'
+
+alias idea='open -a "/Applications/IntelliJ IDEA.app" "$1"'
+alias subl='open -a "/Applications/Sublime Text.app"'
+
+alias chrome-unsafe='open -n -a "/Applications/Google Chrome.app/Contents/MacOS/Google Chrome" --args  --allow-running-insecure-content --user-data-dir="/tmp/chrome_unsafe"'
+
+alias macdown='open -a "/Users/znelson/Applications/MacDown.app"'
+alias stree='open -a "/Applications/SourceTree.app"'
+
+alias showver='cat component.json | grep \"version\"'
+
+alias g='grunt'
+
+alias dotfiles='open -a "/Applications/IntelliJ IDEA 14.app" "/Users/znelson/git/dotfiles"'
+
+alias src='source ~/.bash_profile'
