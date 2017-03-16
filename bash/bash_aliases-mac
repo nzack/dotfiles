@@ -18,3 +18,5 @@ alias g='grunt'
 alias dotfiles='open -a "/Applications/IntelliJ IDEA 14.app" "/Users/znelson/git/dotfiles"'
 
 alias src='source ~/.bash_profile'
+
+alias latest-tag='git describe --tags `git rev-list --tags --max-count=1`'

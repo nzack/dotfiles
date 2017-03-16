@@ -1,0 +1,35 @@
+##
+# Host Database
+#
+# localhost is used to configure the loopback interface
+# when the system is booting.  Do not change this entry.
+##
+127.0.0.1	localhost
+255.255.255.255	broadcasthost
+::1             localhost
+127.0.0.1       local.virtru.com
+127.0.0.1       accounts-local.virtru.com
+172.30.100.200  local.testingtru.com
+127.0.0.1       accounts.testingtru.com acm.testingtru.com cmk.testingtru.com fakes3.testingtru.com admin-panel.testingtru.com testingtru.com
+52.21.117.246   acm-dev.virtru.com
+
+# This hosts file is a merged collection of hosts from reputable sources,
+# with a dash of crowd sourcing via Github
+#
+# Date: November 27 2016
+# Number of unique domains: 31,671
+#
+# Fetch the latest version of this file: https://raw.githubusercontent.com/StevenBlack/hosts/master/hosts
+# Project home page: https://github.com/StevenBlack/hosts
+#
+# ===============================================================
+
+#127.0.0.1 localhost
+#127.0.0.1 localhost.localdomain
+#127.0.0.1 local
+#255.255.255.255 broadcasthost
+#::1 localhost
+#fe80::1%lo0 localhost
+
+# Custom host records are listed here.
+

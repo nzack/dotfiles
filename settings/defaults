@@ -8,3 +8,6 @@ defaults write com.apple.QuartzDebug QDEnableAppleInternal -bool true
 defaults write com.apple.QuartzDebug QDVisibleClientIdentifiers -array-add -string QDWindowInfoClient
 defaults write com.apple.QuartzDebug QuartzDebugPrivateInterface -bool true
 defaults write  com.apple.QuartzDebug QDShowWindowInfoOnMouseOver -bool true
+
+
+defaults write com.apple.notificationcenterui bannerTime 3
