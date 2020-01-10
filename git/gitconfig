@@ -16,7 +16,7 @@
 	rh = reset --hard HEAD
 	up = "!f() { git branch --set-upstream-to=origin/$1 $1; }; f"
 	cl = "!f() { git clone git@github.com:$1; }; f"
-	remote-add = "!f() { git remote add $1 git@github.com:$2/$3.git; }; f"
+	remote-add = "!f() { git remote add $1 git@github.com:$2/$(basename `git rev-parse --show-toplevel`).git; }; f"
 
 [user]
 	name = Zack Nelson
@@ -31,3 +31,7 @@
 [mergetool "sourcetree"]
 	cmd = "opendiff "
 	trustExitCode = true
+[credential]
+	helper = osxkeychain
+[commit]
+	template = /Users/znelson/.stCommitMsg

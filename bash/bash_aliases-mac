@@ -13,10 +13,20 @@ alias stree='open -a "/Applications/SourceTree.app"'
 
 alias showver='cat component.json | grep \"version\"'
 
-alias g='grunt'
-
 alias dotfiles='open -a "/Applications/IntelliJ IDEA 14.app" "/Users/znelson/git/dotfiles"'
 
 alias src='source ~/.bash_profile'
 
 alias latest-tag='git describe --tags `git rev-list --tags --max-count=1`'
+
+alias gam="/Users/znelson/bin/gam/gam"
+
+
+esformatter_fix()
+{
+  esformatter --config ~/.esformatter-config -i "./lib/**/*.js";
+  esformatter --config ~/.esformatter-config -i "./tests/**/*.js";
+  esformatter --config ~/.esformatter-config -i "index.js";
+}
+
+alias dps='docker ps --format "table {{.Image}}\t{{.Command}}\t{{.Names}}"'

@@ -39,6 +39,30 @@ parse_git_branch() {
   git branch 2> /dev/null | sed -e '/^[^*]/d' -e 's/* \(.*\)/ (\1)/'
 }
 
+
+git_branch() {
+  git branch 2> /dev/null | sed -e '/^[^*]/d' -e 's/* \(.*\)/\1/'
+}
+
+git_up() {
+  local remote="origin"
+  if [ $# -eq 1 ]
+  then
+    remote=$1
+  fi
+  local branch=$(git_branch)
+  git branch --set-upstream-to=$remote/$branch $branch;
+}
+
+show_aws_profile() {
+  if [ -z "$AWS_PROFILE" ]
+  then
+    echo "(personal)"
+  else
+    echo "($AWS_PROFILE)"
+  fi
+}
+
 # Set colorful PS1 only on colorful terminals.
 # dircolors --print-database uses its own built-in database
 # instead of using /etc/DIR_COLORS.  Try to use the external file
@@ -66,7 +90,8 @@ if ${use_color} ; then
 	if [[ ${EUID} == 0 ]] ; then
 		PS1='\[\033[01;32m\]\u@\h\[\033[01;34m\] \w\[\033[33m\]$(parse_git_branch)\[\033[00m\] \[\033[01;34m\]\$\[\033[00m\] '
 	else
-		PS1='\[\033[01;32m\]\u@\h\[\033[01;34m\] \w\[\033[33m\]$(parse_git_branch)\[\033[00m\] \[\033[01;34m\]\$\[\033[00m\] '
+#		PS1='\[\033[01;32m\]\u@\h\[\033[01;34m\] \w\[\033[33m\]$(parse_git_branch)\[\033[00m\] \[\033[01;34m\]\$\[\033[00m\] '
+    PS1="\[$(tput bold)\]\[$(tput setaf 2)\]\u@\h \[$(tput setaf 4)\]\w\[$(tput setaf 3)\]\$(parse_git_branch) \[$(tput setaf 1)\]\$(show_aws_profile)\[$(tput setaf 4)\] \\$ \[$(tput sgr0)\]"
 	fi
 
 	alias ls='ls -G'
@@ -84,8 +109,6 @@ alias lsa='ls -alh'
 
 # Try to keep environment pollution down, EPA loves us.
 unset use_color safe_term match_lhs
-
-PATH=$PATH:$HOME/.rvm/bin # Add RVM to PATH for scripting
 
 export NVM_DIR="/Users/znelson/.nvm"
 [ -s "$NVM_DIR/nvm.sh" ] && . "$NVM_DIR/nvm.sh"  # This loads nvm
@@ -170,3 +193,13 @@ elif type compctl &>/dev/null; then
 fi
 ###-end-npm-completion-###
 [ -s "/Users/znelson/.virtrurc" ] && . /Users/znelson/.virtrurc # This sources virtru vars
+
+# tabtab source for serverless package
+# uninstall by removing these lines or running `tabtab uninstall serverless`
+[ -f /Users/znelson/git/virtru/lambda-custom-template-uploader/node_modules/tabtab/.completions/serverless.bash ] && . /Users/znelson/git/virtru/lambda-custom-template-uploader/node_modules/tabtab/.completions/serverless.bash
+# tabtab source for sls package
+# uninstall by removing these lines or running `tabtab uninstall sls`
+[ -f /Users/znelson/git/virtru/lambda-custom-template-uploader/node_modules/tabtab/.completions/sls.bash ] && . /Users/znelson/git/virtru/lambda-custom-template-uploader/node_modules/tabtab/.completions/sls.bash
+# tabtab source for slss package
+# uninstall by removing these lines or running `tabtab uninstall slss`
+[ -f /Users/znelson/.nvm/versions/node/v8.10.0/lib/node_modules/serverless/node_modules/tabtab/.completions/slss.bash ] && . /Users/znelson/.nvm/versions/node/v8.10.0/lib/node_modules/serverless/node_modules/tabtab/.completions/slss.bash

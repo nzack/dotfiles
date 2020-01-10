@@ -1,0 +1,10 @@
+#!/usr/bin/env bash
+
+
+last_pr()
+{
+  user="nzack"
+  repo=$(basename `git rev-parse --show-toplevel`)
+  url="https://api.github.com/repos/virtru/${repo}/pulls?per_page=1&state=all"
+  curl -su $user:$(cat ~/.github_personal_access_token) "$url" | jq '.[0].number'
+}

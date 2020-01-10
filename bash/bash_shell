@@ -1,0 +1,9 @@
+#!/usr/bin/env bash
+
+has_port () {
+  sudo netstat -nlp | grep :$1
+}
+
+dynamo_local() {
+  docker run -p 8000:8000 amazon/dynamodb-local &
+}

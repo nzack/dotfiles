@@ -40,3 +40,43 @@ aws_instance_env()
 {
   aws_instance_base $1 | jq .Reservations[0].Instances[0].PublicDnsName
 }
+
+aws_get_user_org()
+{
+  key="{\"userId\": {\"S\": \"$1\"}}"
+  orgId=$(AWS_PROFILE=production aws dynamodb get-item --table-name user-settings-production-us-east-2 --key "$key" --region us-east-2 | jq .Item.primaryOrgId.S | sed -e 's/^"//' -e 's/"$//')
+
+  key="{\"id\": {\"S\": \"$orgId\"}}"
+
+  AWS_PROFILE=production aws dynamodb get-item --table-name orgs-production-us-east-2 --key "$key" --region us-east-2 | jq
+
+
+  echo OrgID: $orgId
+}
+
+
+start-chrome() {
+  "Applications/Google Chrome.app/Contents/MacOS/Google Chrome" --user-data-dir="/Users/$USER/Library/Application\ Support/Google/ChromePersonal" > /dev/null 2>&1
+}
+
+function bastion() {
+  if [[ $# -ne 1 ]]; then
+    echo "Usage: ${FUNCNAME[0]} ENVIRONMENT"
+    return
+  fi
+
+  local id=$(aws autoscaling describe-auto-scaling-groups --auto-scaling-group-names "bastion-${1}" --query AutoScalingGroups[*].Instances[0].InstanceId --output text)
+  local ip=$(aws ec2 describe-instances --instance-ids ${id} --query Reservations[0].Instances[0].PrivateIpAddress --output text)
+  ssh -l ${SSH_USER:=znelson} ${ip}
+}
+
+function bastion_ip() {
+if [[ $# -ne 1 ]]; then
+    echo "Usage: ${FUNCNAME[0]} ENVIRONMENT"
+    return
+  fi
+
+  local id=$(aws autoscaling describe-auto-scaling-groups --auto-scaling-group-names "bastion-${1}" --query AutoScalingGroups[*].Instances[0].InstanceId --output text)
+  local ip=$(aws ec2 describe-instances --instance-ids ${id} --query Reservations[0].Instances[0].PrivateIpAddress --output text)
+  echo $ip
+}
